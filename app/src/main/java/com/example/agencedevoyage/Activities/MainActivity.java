@@ -1,6 +1,10 @@
 package com.example.agencedevoyage.Activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +26,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initRecyclerView() ;
+
+        ImageView logoutButton = findViewById(R.id.nv_logout);
+
+        logoutButton.setOnClickListener(view -> {
+            // Display feedback to the user
+            Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
+
+            // Clear any user session (if needed)
+            SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();  // Clear stored session data
+            editor.apply();  // Save the changes
+
+            // Navigate to LoginActivity (or any other screen)
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);  // Clear back stack
+            startActivity(intent);
+            finish();  // Close current activity
+        });
+
     }
     private void initRecyclerView(){
         ArrayList<PopularDomain> items = new ArrayList<>() ;

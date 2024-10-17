@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Home Fragment"
-        android:textColor="@color/black"
+        android:textColor="@color/blue"
         android:textSize="30sp" />
 
 </RelativeLayout>

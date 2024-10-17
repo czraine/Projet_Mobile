@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -12,10 +13,35 @@
         android:theme="@style/Theme.AgenceDeVoyage"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.ConfirmationFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ProfileImageFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.TravelInfoFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ContactInfoFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.PersonalDetailsFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Registration"
+            android:exported="false" />
+        <activity
             android:name=".Activities.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -24,4 +50,5 @@
                 android:value="" />
         </activity>
     </application>
+
 </manifest>
