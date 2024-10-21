@@ -11,7 +11,15 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="lavender">#8692f7</color>
+    <color name="darker_orange">#E64A19</color>
+    <color name="gray">#9E9E9E</color>
 
+
+    <color name="background_light">#F5F5F5</color>
+
+    <color name="primary">#E64A20</color>
+
+    <color name="text_primary">#9E9E9E</color>
 
 </resources>
 

@@ -29,6 +29,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -41,10 +44,13 @@ dependencies {
     implementation (libs.material.v190)
 
     implementation ("com.github.bumptech.glide:glide:4.15.0")
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0") // For Java projects
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.circleimageview)
 
 }

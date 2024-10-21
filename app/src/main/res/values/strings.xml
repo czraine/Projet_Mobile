@@ -5,5 +5,107 @@
     <string name="close_nav">Close Navigation Drawer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+
+
+    <string name="home">Home</string>
+    <string name="friends">Friends</string>
+    <string name="find_friends">Find Friends</string>
+    <string name="messages">Messages</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="add_new_post">Add New Post</string>
+    <string name="profile">Profile</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="register_email">Email</string>
+    <string name="register_password">Password</string>
+    <string name="register_conform_password">Conform Password</string>
+    <string name="register_create_account">Create Account</string>
+    <string name="register_icon">TODO</string>
+    <string name="login_email">Email</string>
+    <string name="login_button">login</string>
+    <string name="login_password">Password</string>
+    <string name="or_login_with">or login with</string>
+    <string name="don_t_have_an_account_create_an_new_account">Don\'t have an account.Create an new Account</string>
+    <string name="don_t_have_an_account_need_new_account">Don\'t have an account.need new account</string>
+    <string name="full_name">Full Name</string>
+    <string name="country">Country</string>
+    <string name="save">save</string>
+    <string name="username">username</string>
+    <string name="write_something_about_image_here">write something about image here..</string>
+    <string name="update_post">Update Post</string>
+    <string name="user_name">user name</string>
+    <string name="has_been_updated_a_post">has been updated a post</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="post_description">Post description . . . .</string>
+    <string name="todo">TODO</string>
+    <string name="updated">updated @</string>
+    <string name="edit_post">Edit Post</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="click_post_description">Post description</string>
+    <string name="profile_status">Profile status</string>
+    <string name="usersname">Usersname</string>
+    <string name="profile_name">Profile name</string>
+    <string name="_0_likes">0 likes</string>
+    <string name="profile_namep">Profile Name</string>
+    <string name="user_namep">User Name</string>
+    <string name="hey_hii_hiw_are_you_i_am_fine_come_lets_have_an_party">hey hii hiw Are you i am fine come lets have an party</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="gender">Gender</string>
+    <string name="relationship_status">Relationship status</string>
+    <string name="we_will_send_the_link_to_your_mail_after_when_you_provide_email_and_click_the_send_button_please_click_on_that_link_to_reset_your_password">We will send the link to your mail after when you provide email and click the send button. Please click on that link to reset your password</string>
+    <string name="write_your_email_here">write your email here...</string>
+    <string name="send_email">send email</string>
+    <string name="update_settings">Update Settings</string>
+    <string name="commented_on">commented on</string>
+    <string name="comment_text_will_display_here">Comment text will display here...</string>
+    <string name="date_time">Published on October 12, 2023</string>
+    <string name="back_button">Back</string>
+    <string name="add_comment">Add Comment</string>
+    <string name="search">Search</string>
+    <string name="add_post">add post</string>
 
 </resources>
