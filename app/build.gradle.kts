@@ -39,7 +39,8 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.coordinatorlayout)
     implementation (libs.material.v190)
-
+    implementation ("androidx.room:room-runtime:2.2.0")
+    annotationProcessor ("androidx.room:room-compiler:2.2.0")
     implementation ("com.github.bumptech.glide:glide:4.15.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0") // For Java projects
 

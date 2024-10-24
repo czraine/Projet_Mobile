@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Retrieve the user's name from SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
+        String userName = preferences.getString("user_name", "Guest"); // Default to "Guest" if no name is found
+
+        // Set the "Welcome Back" text to include the user's name
+        TextView welcomeTextView = findViewById(R.id.textView7); // The TextView with "Welcome Back"
+        welcomeTextView.setText( userName);
         initRecyclerView() ;
 
         ImageView logoutButton = findViewById(R.id.nv_logout);
@@ -34,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
 
             // Clear any user session (if needed)
-            SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();  // Clear stored session data
             editor.apply();  // Save the changes

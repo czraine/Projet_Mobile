@@ -5,11 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.agencedevoyage.Entity.UserViewModel;
 import com.example.agencedevoyage.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 /**
@@ -59,34 +62,42 @@ public class ProfileImageFragment extends Fragment {
         }
     }
 
-    private Button nextButton, previousButton;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile_image, container, false);
+        private Button nextButton, previousButton;
+        private UserViewModel userViewModel;
 
-        nextButton = view.findViewById(R.id.btnNext);
-        previousButton = view.findViewById(R.id.btnPrevious);
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_profile_image, container, false);
 
-        // Navigate to the next fragment when "Next" button is clicked
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            nextButton = view.findViewById(R.id.btnNext);
+            previousButton = view.findViewById(R.id.btnPrevious);
+
+            // Get the shared UserViewModel instance
+            userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
+            // Assuming profile picture upload logic
+            Button uploadImageButton = view.findViewById(R.id.btnUploadImage);
+            uploadImageButton.setOnClickListener(v -> {
+                // Logic to select and upload the image (this is just a placeholder)
+                // Assuming we get an image URI or file path after the upload
+                String imagePath = "path/to/uploaded/image";  // Replace with actual image path
+                userViewModel.setProfilePicture(imagePath);
+            });
+
+            // Navigate to the next fragment when "Next" button is clicked
+            nextButton.setOnClickListener(v -> {
                 ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
                 viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-            }
-        });
+            });
 
-        // Navigate to the previous fragment when "Previous" button is clicked
-        previousButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            // Navigate to the previous fragment when "Previous" button is clicked
+            previousButton.setOnClickListener(v -> {
                 ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
                 viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-            }
-        });
+            });
 
-        return view;
+            return view;
+        }
     }
-}

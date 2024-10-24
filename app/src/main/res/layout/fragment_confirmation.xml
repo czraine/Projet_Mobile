@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- res/layout/fragment_confirmation.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -9,28 +8,73 @@
     android:gravity="center">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please confirm your details"
+        android:textSize="18sp"
         android:gravity="center"
         android:layout_marginBottom="20dp"/>
 
-    <!-- Show collected information here (in the code, bind it dynamically) -->
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username: "
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email: "
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/tvPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone: "
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address: "
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/tvProfilePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile Picture: "
+        android:textSize="16sp"
+        android:layout_marginBottom="20dp"/>
+
     <Button
         android:id="@+id/btnPrevious"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Previous"
         android:backgroundTint="@color/orange"
-
-        android:layout_marginTop="20dp"/>
+        android:layout_marginBottom="20dp"/>
 
     <Button
         android:id="@+id/btnConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
-
-        android:text="Confirm"/>
-
+        android:text="Confirm"
+        android:backgroundTint="@color/blue"/>
 </LinearLayout>

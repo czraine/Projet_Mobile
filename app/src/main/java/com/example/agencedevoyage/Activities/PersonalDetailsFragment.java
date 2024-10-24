@@ -5,12 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.agencedevoyage.Entity.UserViewModel;
 import com.example.agencedevoyage.R;
 
 /**
@@ -60,25 +63,37 @@ public class PersonalDetailsFragment extends Fragment {
         }
     }
 
-    private Button nextButton;
+        private Button nextButton;
+        private EditText etName, etUsername, etPassword;
+        private UserViewModel userViewModel;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_personal_details, container, false);
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_personal_details, container, false);
 
-        nextButton = view.findViewById(R.id.btnNext);
+            nextButton = view.findViewById(R.id.btnNext);
+            etName = view.findViewById(R.id.etName);
+            etUsername = view.findViewById(R.id.etUsername);
+            etPassword = view.findViewById(R.id.etPassword);
 
-        // Navigate to next step (fragment) when "Next" button is clicked
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Accessing ViewPager2 from activity
+            // Get the shared UserViewModel instance
+            userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
+            // Navigate to next step (fragment) when "Next" button is clicked
+            nextButton.setOnClickListener(v -> {
+                // Save input data to ViewModel
+                userViewModel.setName(etName.getText().toString());
+                userViewModel.setUsername(etUsername.getText().toString());
+                userViewModel.setPassword(etPassword.getText().toString());
+
+                // Move to the next fragment
                 ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
-                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1); // Move to the next fragment
-            }
-        });
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+            });
 
-        return view;
-    }
+            return view;
+        }
+
+
 }
