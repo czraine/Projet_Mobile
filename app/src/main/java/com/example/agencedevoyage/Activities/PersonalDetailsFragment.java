@@ -80,20 +80,63 @@ public class PersonalDetailsFragment extends Fragment {
             // Get the shared UserViewModel instance
             userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-            // Navigate to next step (fragment) when "Next" button is clicked
             nextButton.setOnClickListener(v -> {
-                // Save input data to ViewModel
-                userViewModel.setName(etName.getText().toString());
-                userViewModel.setUsername(etUsername.getText().toString());
-                userViewModel.setPassword(etPassword.getText().toString());
+                // Validate input before proceeding
+                if (validateInputs()) {
+                    // Save input data to ViewModel
+                    userViewModel.setName(etName.getText().toString());
+                    userViewModel.setUsername(etUsername.getText().toString());
+                    userViewModel.setPassword(etPassword.getText().toString());
 
-                // Move to the next fragment
-                ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
-                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                    // Move to the next fragment
+                    ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                }
             });
+
+
 
             return view;
         }
+    // Validation method to ensure all inputs are valid
+    private boolean validateInputs() {
+        String name = etName.getText().toString().trim();
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        // Check if Name is empty
+        if (name.isEmpty()) {
+            etName.setError("Name is required");
+            etName.requestFocus();
+            return false;
+        }
+
+        // Check if Username is empty or too short
+        if (username.isEmpty()) {
+            etUsername.setError("Username is required");
+            etUsername.requestFocus();
+            return false;
+        } else if (username.length() < 4) {
+            etUsername.setError("Username must be at least 4 characters");
+            etUsername.requestFocus();
+            return false;
+        }
+
+        // Check if Password is empty or too weak
+        if (password.isEmpty()) {
+            etPassword.setError("Password is required");
+            etPassword.requestFocus();
+            return false;
+        } else if (password.length() < 6) {
+            etPassword.setError("Password must be at least 6 characters");
+            etPassword.requestFocus();
+            return false;
+        }
+
+        // All validations passed
+        return true;
+    }
+
 
 
 }

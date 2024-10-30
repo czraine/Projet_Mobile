@@ -33,6 +33,17 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Check if the user is already logged in
+        SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
+        boolean isLoggedIn = preferences.getBoolean("is_logged_in", false);
+
+        if (isLoggedIn) {
+            // If the user is logged in, redirect to MainActivity
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Close the LoginActivity
+            return; // Stop further execution of onCreate
+        }
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
@@ -94,21 +105,21 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(User user) {
             if (user != null) {
-                // Save the user's name to SharedPreferences
                 SharedPreferences preferences = activity.getSharedPreferences("user_session", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("user_name", user.getName()); // Assuming 'getName()' retrieves the user's name
+                editor.putString("user_name", user.getName()); // Save the user's name
+                editor.putBoolean("is_logged_in", true); // Save login state
                 editor.apply();
 
-                // Login successful, navigate to MainActivity
                 Intent intent = new Intent(activity, MainActivity.class);
                 activity.startActivity(intent);
+                activity.finish(); // Close LoginActivity
                 Toast.makeText(activity, "Login Successful", Toast.LENGTH_SHORT).show();
             } else {
-                // Show error message
                 Toast.makeText(activity, "Invalid credentials", Toast.LENGTH_SHORT).show();
             }
         }
+
 
     }
 }

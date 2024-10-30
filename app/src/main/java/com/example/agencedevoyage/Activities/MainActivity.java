@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
             // Clear any user session (if needed)
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();  // Clear stored session data
+
+            editor.putBoolean("is_logged_in", false); // Reset login state
+
             editor.apply();  // Save the changes
 
             // Navigate to LoginActivity (or any other screen)

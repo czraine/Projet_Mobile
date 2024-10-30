@@ -13,7 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Travel Destination"
-        android:layout_marginTop="20dp"/>
+        android:background="@drawable/custom_edittext"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        android:layout_marginTop="40dp"
+        android:drawablePadding="8dp"
+        />
 
     <EditText
         android:id="@+id/etBudget"
@@ -21,14 +27,26 @@
         android:layout_height="wrap_content"
         android:hint="Budget"
         android:inputType="numberDecimal"
-        android:layout_marginTop="20dp"/>
+        android:background="@drawable/custom_edittext"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        android:layout_marginTop="40dp"
+        android:drawablePadding="8dp"
+        />
 
     <EditText
         android:id="@+id/etTravelDates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Travel Dates"
-        android:layout_marginTop="20dp"/>
+        android:background="@drawable/custom_edittext"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        android:layout_marginTop="40dp"
+        android:drawablePadding="8dp"
+        />
     <Button
         android:id="@+id/btnPrevious"
         android:layout_width="match_parent"

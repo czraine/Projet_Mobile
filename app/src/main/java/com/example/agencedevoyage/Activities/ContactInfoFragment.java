@@ -85,18 +85,22 @@ public class ContactInfoFragment extends Fragment {
 
             // Navigate to the next fragment when "Next" button is clicked
             nextButton.setOnClickListener(v -> {
-                // Save contact info to ViewModel
-                userViewModel.setEmail(etEmail.getText().toString());
-                userViewModel.setPhone(etPhone.getText().toString());
-                userViewModel.setStreetAddress(etStreet.getText().toString());
-                userViewModel.setCity(etCity.getText().toString());
-                userViewModel.setState(etState.getText().toString());
-                userViewModel.setCountry(etCountry.getText().toString());
+                if (validateInputs()) {
+                    // Save contact info to ViewModel
+                    userViewModel.setEmail(etEmail.getText().toString());
+                    userViewModel.setPhone(etPhone.getText().toString());
+                    userViewModel.setStreetAddress(etStreet.getText().toString());
+                    userViewModel.setCity(etCity.getText().toString());
+                    userViewModel.setState(etState.getText().toString());
+                    userViewModel.setCountry(etCountry.getText().toString());
 
-                // Move to the next fragment
-                ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
-                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                    // Move to the next fragment
+                    ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                }
             });
+
+
 
             // Navigate to the previous fragment when "Previous" button is clicked
             previousButton.setOnClickListener(v -> {
@@ -106,4 +110,59 @@ public class ContactInfoFragment extends Fragment {
 
             return view;
         }
+    // Validation method to ensure inputs are valid
+    private boolean validateInputs() {
+        String email = etEmail.getText().toString().trim();
+        String phone = etPhone.getText().toString().trim();
+        String street = etStreet.getText().toString().trim();
+        String city = etCity.getText().toString().trim();
+        String state = etState.getText().toString().trim();
+        String country = etCountry.getText().toString().trim();
+
+        // Check if Email is valid
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etEmail.setError("Enter a valid email");
+            etEmail.requestFocus();
+            return false;
+        }
+
+        // Check if Phone is valid (at least 8 digits)
+        if (phone.isEmpty() || phone.length() < 8 || !phone.matches("\\d+")) {
+            etPhone.setError("Enter a valid phone number");
+            etPhone.requestFocus();
+            return false;
+        }
+
+        // Check if Street address is empty
+        if (street.isEmpty()) {
+            etStreet.setError("Street address is required");
+            etStreet.requestFocus();
+            return false;
+        }
+
+        // Check if City is empty
+        if (city.isEmpty()) {
+            etCity.setError("City is required");
+            etCity.requestFocus();
+            return false;
+        }
+
+        // Check if State is empty
+        if (state.isEmpty()) {
+            etState.setError("State is required");
+            etState.requestFocus();
+            return false;
+        }
+
+        // Check if Country is empty
+        if (country.isEmpty()) {
+            etCountry.setError("Country is required");
+            etCountry.requestFocus();
+            return false;
+        }
+
+        // All validations passed
+        return true;
     }
+
+}

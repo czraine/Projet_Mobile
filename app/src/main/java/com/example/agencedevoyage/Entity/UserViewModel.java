@@ -12,7 +12,16 @@ public class UserViewModel extends ViewModel {
     private String state;
     private String country;
     private String profilePicture;
+    private String profileImageUri;  // Add this field
 
+    // Getters and Setters for profileImageUri
+    public String getProfileImageUri() {
+        return profileImageUri;
+    }
+
+    public void setProfileImageUri(String profileImageUri) {
+        this.profileImageUri = profileImageUri;
+    }
     public UserViewModel() {
     }
 
