@@ -14,7 +14,13 @@
         android:layout_height="wrap_content"
         android:hint="Name"
         android:inputType="textPersonName"
-        android:layout_marginTop="20dp"/>
+        android:background="@drawable/custom_edittext"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        android:layout_marginTop="40dp"
+        android:drawablePadding="8dp"
+        />
 
     <EditText
         android:id="@+id/etUsername"
@@ -22,7 +28,13 @@
         android:layout_height="wrap_content"
         android:hint="Username"
         android:inputType="text"
-        android:layout_marginTop="20dp"/>
+        android:background="@drawable/custom_edittext"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        android:layout_marginTop="40dp"
+        android:drawablePadding="8dp"
+        />
 
     <EditText
         android:id="@+id/etPassword"
@@ -31,13 +43,19 @@
         android:hint="Password"
 
         android:inputType="textPassword"
-        android:layout_marginTop="20dp"/>
+        android:background="@drawable/custom_edittext"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        android:layout_marginTop="40dp"
+        android:drawablePadding="8dp"
+        />
     <Button
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Next"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/orange"
 
         android:layout_marginTop="20dp"/>
 </LinearLayout>

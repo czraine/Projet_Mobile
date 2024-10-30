@@ -17,13 +17,32 @@
 
         android:layout_marginBottom="20dp"/>
 
-    <Button
-        android:id="@+id/btnUploadImage"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/orange"
+        android:orientation="horizontal">
 
-        android:text="Upload Image"/>
+        <Button
+            android:id="@+id/btnTakePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/orange"
+
+            android:text="Take Photo" />
+
+        <Button
+            android:id="@+id/btnChooseFromGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/orange"
+
+            android:layout_marginTop="20dp"
+            android:text="Choose from Gallery" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/btnPrevious"
         android:layout_width="match_parent"

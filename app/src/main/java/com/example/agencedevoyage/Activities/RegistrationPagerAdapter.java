@@ -21,12 +21,11 @@ public class RegistrationPagerAdapter extends FragmentStateAdapter {
                 return new PersonalDetailsFragment(); // Step 1: Personal Details
             case 1:
                 return new ContactInfoFragment();     // Step 2: Contact Information
+
             case 2:
-                return new TravelInfoFragment();      // Step 3: Travel Information
+                return new ProfileImageFragment();    // Step 3: Profile Image Upload
             case 3:
-                return new ProfileImageFragment();    // Step 4: Profile Image Upload
-            case 4:
-                return new ConfirmationFragment();    // Step 5: Confirmation
+                return new ConfirmationFragment();    // Step 4: Confirmation
             default:
                 return new PersonalDetailsFragment(); // Default case (first step)
         }
@@ -35,6 +34,6 @@ public class RegistrationPagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         // Total number of steps (fragments)
-        return 5;
+        return 4;
     }
 }

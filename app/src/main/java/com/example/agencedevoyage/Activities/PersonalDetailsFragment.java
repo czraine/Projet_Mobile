@@ -5,12 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.agencedevoyage.Entity.UserViewModel;
 import com.example.agencedevoyage.R;
 
 /**
@@ -60,25 +63,80 @@ public class PersonalDetailsFragment extends Fragment {
         }
     }
 
-    private Button nextButton;
+        private Button nextButton;
+        private EditText etName, etUsername, etPassword;
+        private UserViewModel userViewModel;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_personal_details, container, false);
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_personal_details, container, false);
 
-        nextButton = view.findViewById(R.id.btnNext);
+            nextButton = view.findViewById(R.id.btnNext);
+            etName = view.findViewById(R.id.etName);
+            etUsername = view.findViewById(R.id.etUsername);
+            etPassword = view.findViewById(R.id.etPassword);
 
-        // Navigate to next step (fragment) when "Next" button is clicked
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Accessing ViewPager2 from activity
-                ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
-                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1); // Move to the next fragment
-            }
-        });
+            // Get the shared UserViewModel instance
+            userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-        return view;
+            nextButton.setOnClickListener(v -> {
+                // Validate input before proceeding
+                if (validateInputs()) {
+                    // Save input data to ViewModel
+                    userViewModel.setName(etName.getText().toString());
+                    userViewModel.setUsername(etUsername.getText().toString());
+                    userViewModel.setPassword(etPassword.getText().toString());
+
+                    // Move to the next fragment
+                    ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                }
+            });
+
+
+
+            return view;
+        }
+    // Validation method to ensure all inputs are valid
+    private boolean validateInputs() {
+        String name = etName.getText().toString().trim();
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        // Check if Name is empty
+        if (name.isEmpty()) {
+            etName.setError("Name is required");
+            etName.requestFocus();
+            return false;
+        }
+
+        // Check if Username is empty or too short
+        if (username.isEmpty()) {
+            etUsername.setError("Username is required");
+            etUsername.requestFocus();
+            return false;
+        } else if (username.length() < 4) {
+            etUsername.setError("Username must be at least 4 characters");
+            etUsername.requestFocus();
+            return false;
+        }
+
+        // Check if Password is empty or too weak
+        if (password.isEmpty()) {
+            etPassword.setError("Password is required");
+            etPassword.requestFocus();
+            return false;
+        } else if (password.length() < 6) {
+            etPassword.setError("Password must be at least 6 characters");
+            etPassword.requestFocus();
+            return false;
+        }
+
+        // All validations passed
+        return true;
     }
+
+
+
 }

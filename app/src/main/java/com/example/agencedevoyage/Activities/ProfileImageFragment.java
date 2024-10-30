@@ -1,15 +1,27 @@
 package com.example.agencedevoyage.Activities;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.agencedevoyage.Entity.UserViewModel;
 import com.example.agencedevoyage.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 /**
@@ -59,7 +71,14 @@ public class ProfileImageFragment extends Fragment {
         }
     }
 
-    private Button nextButton, previousButton;
+    private static final int CAMERA_REQUEST_CODE = 100;
+    private static final int GALLERY_REQUEST_CODE = 200;
+    private static final int PERMISSION_REQUEST_CODE = 300;
+
+    private Button nextButton, previousButton, takePhotoButton, chooseFromGalleryButton;
+    private ImageView profileImageView;
+    private UserViewModel userViewModel;
+    private Uri imageUri;
 
     @Nullable
     @Override
@@ -68,25 +87,84 @@ public class ProfileImageFragment extends Fragment {
 
         nextButton = view.findViewById(R.id.btnNext);
         previousButton = view.findViewById(R.id.btnPrevious);
+        takePhotoButton = view.findViewById(R.id.btnTakePhoto);
+        chooseFromGalleryButton = view.findViewById(R.id.btnChooseFromGallery);
+        profileImageView = view.findViewById(R.id.ivProfileImage);
 
-        // Navigate to the next fragment when "Next" button is clicked
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
-                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+        // Get the shared UserViewModel instance
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
+        takePhotoButton.setOnClickListener(v -> {
+            if (checkPermissions()) {
+                openCamera();
+            } else {
+                requestPermissions();
             }
         });
 
-        // Navigate to the previous fragment when "Previous" button is clicked
-        previousButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
-                viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-            }
+        chooseFromGalleryButton.setOnClickListener(v -> openGallery());
+
+        nextButton.setOnClickListener(v -> {
+            ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+        });
+
+        previousButton.setOnClickListener(v -> {
+            ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
         });
 
         return view;
+    }
+
+    private boolean checkPermissions() {
+        return ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(requireActivity(),
+                new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                PERMISSION_REQUEST_CODE);
+    }
+
+    private void openCamera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+        }
+    }
+
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST_CODE && data != null) {
+                imageUri = data.getData();
+                profileImageView.setImageURI(imageUri);
+                userViewModel.setProfileImageUri(imageUri.toString());
+            } else if (requestCode == GALLERY_REQUEST_CODE && data != null) {
+                imageUri = data.getData();
+                profileImageView.setImageURI(imageUri);
+                userViewModel.setProfileImageUri(imageUri.toString());
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera();
+            } else {
+                Toast.makeText(requireContext(), "Permissions required to use the camera", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

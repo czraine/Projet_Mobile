@@ -6,12 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
+import com.example.agencedevoyage.Database.AppDatabase;
+import com.example.agencedevoyage.Entity.User;
+import com.example.agencedevoyage.Entity.UserViewModel;
 import com.example.agencedevoyage.R;
 
 /**
@@ -61,36 +68,63 @@ public class ConfirmationFragment extends Fragment {
         }
     }
 
-    private Button confirmButton , previousButton;
+        private TextView tvName, tvUsername, tvEmail, tvPhone, tvAddress;
+        private Button confirmButton, previousButton;
+        private UserViewModel userViewModel;
+        private ImageView ivProfilePicture;
 
-    @Nullable
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_confirmation, container, false);
 
-        confirmButton = view.findViewById(com.example.agencedevoyage.R.id.btnConfirm);
+        // Initialize views
+        ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
+        tvName = view.findViewById(R.id.tvName);
+        tvUsername = view.findViewById(R.id.tvUsername);
+        tvEmail = view.findViewById(R.id.tvEmail);
+        tvPhone = view.findViewById(R.id.tvPhone);
+        tvAddress = view.findViewById(R.id.tvAddress);
+        confirmButton = view.findViewById(R.id.btnConfirm);
         previousButton = view.findViewById(R.id.btnPrevious);
 
-        // Submit registration when "Confirm" button is clicked
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Code to submit the registration data
-                // You can send data to your backend here
+        // Get UserViewModel instance
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-                // After registration, redirect to another activity (like login or home)
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
+        // Display data from ViewModel
+        tvName.setText(userViewModel.getName());
+        tvUsername.setText(userViewModel.getUsername());
+        tvEmail.setText(userViewModel.getEmail());
+        tvPhone.setText(userViewModel.getPhone());
+        tvAddress.setText(userViewModel.getStreetAddress() + ", " + userViewModel.getCity() + ", " +
+                userViewModel.getState() + ", " + userViewModel.getCountry());
+
+        // Load the profile picture using Glide
+        String imageUri = userViewModel.getProfileImageUri();
+        if (imageUri != null) {
+            Glide.with(this).load(imageUri).into(ivProfilePicture);
+        }
+
+        // Confirm button logic
+        confirmButton.setOnClickListener(v -> {
+            User user = new User(userViewModel.getName(), userViewModel.getUsername(),
+                    userViewModel.getPassword(), userViewModel.getEmail(),
+                    userViewModel.getPhone(), userViewModel.getStreetAddress(),
+                    userViewModel.getCity(), userViewModel.getState(), userViewModel.getCountry(),userViewModel.getProfileImageUri());
+
+            new Thread(() -> AppDatabase.getInstance(getContext()).userDao().insert(user)).start();
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
         });
-// Navigate to the previous fragment when "Previous" button is clicked
-        previousButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
-                viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-            }
+
+        // Navigate to the previous fragment
+        previousButton.setOnClickListener(v -> {
+            ViewPager2 viewPager = getActivity().findViewById(R.id.viewPager);
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
         });
+
         return view;
     }
+
 }
+
