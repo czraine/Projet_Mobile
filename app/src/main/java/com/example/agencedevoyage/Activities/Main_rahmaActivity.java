@@ -2,11 +2,15 @@ package com.example.agencedevoyage.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +28,7 @@ public class Main_rahmaActivity extends AppCompatActivity {
     private ComplaintAdapter complaintAdapter;
     private AppDatabase_rahma database;
 
+    // ActivityResultLauncher to handle complaints submission
     ActivityResultLauncher<Intent> submitComplaintLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -65,6 +70,14 @@ public class Main_rahmaActivity extends AppCompatActivity {
                 complaintAdapter.notifyDataSetChanged();
                 Toast.makeText(Main_rahmaActivity.this, "Complaint deleted", Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public void onComplaintStatusUpdated(Complaint complaint) {
+                // Show rating dialog when status is updated to Resolved
+                if ("Resolved".equals(complaint.getStatus())) {
+                    showRatingDialog(complaint);
+                }
+            }
         });
 
         recyclerViewComplaints.setAdapter(complaintAdapter);
@@ -89,5 +102,33 @@ public class Main_rahmaActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadComplaintsFromDatabase();
+    }
+
+    // Method to show the rating dialog when the status is "Resolved"
+    private void showRatingDialog(Complaint complaint) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_rating, null);
+        RatingBar ratingBar = dialogView.findViewById(R.id.ratingBar);
+        EditText feedbackInput = dialogView.findViewById(R.id.feedbackInput);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Rate Your Experience")
+                .setView(dialogView)
+                .setPositiveButton("Submit", (dialog, which) -> {
+                    int rating = (int) ratingBar.getRating(); // Get rating
+                    String feedback = feedbackInput.getText().toString(); // Get feedback
+
+                    // Update the complaint with rating and feedback
+                    complaint.setRating(rating);
+                    complaint.setFeedback(feedback);
+
+                    // Update in the database
+                    database.complaintDAO().updateComplaintFeedback(complaint.getId(), rating, feedback);
+
+                    Toast.makeText(this, "Thank you for your feedback!", Toast.LENGTH_SHORT).show();
+                    complaintAdapter.notifyDataSetChanged();
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        builder.create().show();
     }
 }

@@ -3,6 +3,7 @@ package com.example.agencedevoyage.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import android.util.Log;
 
 import android.view.View;
@@ -36,10 +37,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView.Adapter adapterPop , adapterCat ;
-    private RecyclerView recyclerViewPop , recyclerViewCat ;
+    private RecyclerView.Adapter adapterPop, adapterCat;
+    private RecyclerView recyclerViewPop, recyclerViewCat;
+    private ImageView notificationIcon; // Changed from Button to ImageView
+
+
     private ApiService apiService;
-    private Button addOfferButton;
 
     private  TextView seeAllTextView ;
 
@@ -49,9 +52,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         addOfferButton = findViewById(R.id.AddOfferButton);
 
-        // Initializing button after setContentView
-        Button openMainRahmaButton = findViewById(R.id.button_open_main_rahma);
-        openMainRahmaButton.setOnClickListener(v -> {
+        // Initialize notification icon (ImageView)
+        notificationIcon = findViewById(R.id.imageView4); // Ensure ID matches XML layout
+        notificationIcon.setOnClickListener(v -> {
+
             Intent intent = new Intent(MainActivity.this, Main_rahmaActivity.class);
             startActivity(intent);
         });

@@ -1,5 +1,6 @@
 package com.example.agencedevoyage.Activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -45,6 +47,7 @@ public class AdminActivity extends AppCompatActivity {
         themeSwitch = findViewById(R.id.themeSwitch);
         RecyclerView recyclerViewAdminComplaints = findViewById(R.id.recyclerViewAdminComplaints);
         Button updateStatusButton = findViewById(R.id.updateStatusButton);
+        Button viewDashboardButton = findViewById(R.id.viewDashboardButton); // New button to view dashboard
 
         // Initialize SharedPreferences
         SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
@@ -90,7 +93,18 @@ public class AdminActivity extends AppCompatActivity {
             public void onDeleteComplaint(Complaint complaint) {
                 onComplaintDeleted(complaint);
             }
+
+
+            @Override
+            public void onComplaintStatusUpdated(Complaint complaint) {
+                // Handle the updated status
+                if ("Resolved".equals(complaint.getStatus())) {
+                    // For "Resolved" complaints, we can show the rating in the admin dashboard
+                    Toast.makeText(AdminActivity.this, "Complaint is resolved. Check dashboard for feedback.", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
+
         recyclerViewAdminComplaints.setAdapter(complaintAdapter);
 
         // Load complaints from database
@@ -103,6 +117,13 @@ public class AdminActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(AdminActivity.this, "Please select a complaint to update", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        // Set up View Dashboard button
+        viewDashboardButton.setOnClickListener(v -> {
+            // Navigate to the dashboard that shows ratings and feedback
+            Intent intent = new Intent(AdminActivity.this, DashboardActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -145,8 +166,13 @@ public class AdminActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Update Status");
         builder.setItems(statuses, (dialog, which) -> {
-            selectedComplaint.setStatus(statuses[which]);
-            database.complaintDAO().updateComplaintStatus(selectedComplaint.getTitle(), statuses[which]);
+            String newStatus = statuses[which];
+            selectedComplaint.setStatus(newStatus);
+
+            // Update the status in the database
+            database.complaintDAO().updateComplaintStatus(selectedComplaint.getId(), newStatus);
+
+            // Notify adapter of data change
             complaintAdapter.notifyItemChanged(complaintList.indexOf(selectedComplaint));
         });
         builder.show();

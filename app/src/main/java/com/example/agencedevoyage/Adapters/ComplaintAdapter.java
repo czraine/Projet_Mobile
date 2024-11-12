@@ -39,7 +39,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Comp
         Complaint complaint = complaintList.get(position);
         holder.bind(complaint, listener);
 
-        // Applique la couleur de fond en fonction du statut
+        // Set background color based on complaint status
         switch (complaint.getStatus()) {
             case "In Progress":
                 holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.in_progress_color));
@@ -52,11 +52,6 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Comp
                 holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.unknown_color));
                 break;
         }
-
-        // Affiche le titre, la description et le statut dans les TextViews
-        holder.complaintTitle.setText(complaint.getTitle());
-        holder.complaintDescription.setText(complaint.getDescription());
-        holder.complaintStatus.setText(complaint.getStatus());  // Affiche explicitement le statut
     }
 
     @Override
@@ -64,15 +59,17 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Comp
         return complaintList.size();
     }
 
+    // Define the interface for click events
     public interface OnComplaintClickListener {
         void onEditComplaint(Complaint complaint);
         void onDeleteComplaint(Complaint complaint);
+        void onComplaintStatusUpdated(Complaint complaint);
     }
 
     static class ComplaintViewHolder extends RecyclerView.ViewHolder {
         TextView complaintTitle;
         TextView complaintDescription;
-        TextView complaintStatus; // Nouveau TextView pour afficher le statut
+        TextView complaintStatus;
         ImageView editIcon;
         ImageView deleteIcon;
 
@@ -80,7 +77,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Comp
             super(itemView);
             complaintTitle = itemView.findViewById(R.id.complaintTitle);
             complaintDescription = itemView.findViewById(R.id.complaintDescription);
-            complaintStatus = itemView.findViewById(R.id.complaintStatus);  // Assurez-vous que ce TextView existe dans votre layout XML
+            complaintStatus = itemView.findViewById(R.id.complaintStatus);
             editIcon = itemView.findViewById(R.id.editButton);
             deleteIcon = itemView.findViewById(R.id.deleteButton);
         }
@@ -88,11 +85,18 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Comp
         public void bind(Complaint complaint, OnComplaintClickListener listener) {
             complaintTitle.setText(complaint.getTitle());
             complaintDescription.setText(complaint.getDescription());
-            complaintStatus.setText(complaint.getStatus());  // Assurez-vous que le statut est affiché
+            complaintStatus.setText(complaint.getStatus());
 
-            // Gérer les clics sur les icônes d'édition et de suppression
+            // Set up click listeners for edit and delete buttons
             editIcon.setOnClickListener(v -> listener.onEditComplaint(complaint));
             deleteIcon.setOnClickListener(v -> listener.onDeleteComplaint(complaint));
+
+            // Handle click event for updating the complaint's status
+            itemView.setOnClickListener(v -> {
+                if ("Resolved".equals(complaint.getStatus())) {
+                    listener.onComplaintStatusUpdated(complaint);
+                }
+            });
         }
     }
 }

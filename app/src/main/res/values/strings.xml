@@ -33,4 +33,8 @@
     <string name="filter_by_destination_hint">Filter by Destination</string>
     <string name="select_date">Select Date</string>
 
+    <string name="rate_experience">Rate your experience</string>
+    <string name="leave_feedback">Leave additional feedback</string>
+
+
 </resources>
