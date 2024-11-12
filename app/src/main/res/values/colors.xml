@@ -19,6 +19,9 @@
     <color name="resolved_color">#DFFFD6</color> <!-- Light green -->
     <color name="unknown_color">#FFEBEE</color> <!-- Light red -->
 
+    <!-- Status bar colors for light and dark modes -->
+    <color name="status_bar_light">#FFFFFF</color> <!-- White for light mode -->
+    <color name="status_bar_dark">#000000</color> <!-- Black for dark mode -->
 
 </resources>
 
