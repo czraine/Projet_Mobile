@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Basic Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgenceDeVoyage"
         tools:targetApi="31">
+
         <activity
             android:name=".Activities.AddCommentActivity"
             android:exported="false" />
@@ -28,10 +36,7 @@
             android:name=".Activities.PostAddActivity"
             android:exported="false"
             android:theme="@style/Theme.AgenceDeVoyage" />
-        <activity
-            android:name=".Activities.BlogManagement.PostAddActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AgenceDeVoyage" />
+
         <activity
             android:name=".Activities.ConfirmationFragment"
             android:exported="false" />
@@ -61,14 +66,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
     </application>
-
 </manifest>

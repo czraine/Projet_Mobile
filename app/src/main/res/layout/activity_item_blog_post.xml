@@ -31,7 +31,7 @@
             android:layout_height="50dp"
             android:layout_marginEnd="16dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/idriss" />
+            android:src="@drawable/profile" />
 
         <!-- User Info -->
         <LinearLayout
@@ -80,8 +80,8 @@
         android:adjustViewBounds="true"
         android:background="@android:color/white"
         android:elevation="4dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/outhna" />
+        android:scaleType="centerCrop" />
+
 
     <!-- Likes and Comments Section -->
     <LinearLayout

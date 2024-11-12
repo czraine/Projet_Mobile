@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -22,7 +23,7 @@
             android:contentDescription="Back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp" />
 
         <TextView
@@ -30,8 +31,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TravelBlog"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@id/backButton"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/backButton"
@@ -46,7 +48,8 @@
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/imageViewBlog"
@@ -55,10 +58,11 @@
                 android:layout_gravity="center"
                 android:background="@drawable/rounded_border"
                 android:contentDescription="Image Upload"
-                android:elevation="8dp"
-                android:onClick="onImageClick"
+                android:elevation="4dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/jk_placeholder_image" />
+                android:src="@drawable/jk_placeholder_image"
+                android:clickable="true"
+                android:focusable="true" />
 
             <ImageView
                 android:id="@+id/upload_icon"
@@ -76,22 +80,24 @@
             android:id="@+id/textInputLayoutContent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:background="@drawable/rounded_border"
-            android:hint="Add a comment..."
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_frame">
+            app:layout_constraintTop_toBottomOf="@id/image_frame"
+            app:hintEnabled="true"
+            app:boxStrokeColor="@color/teal_700"
+            app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/add_content"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
+                android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:minHeight="50dp"
                 android:padding="16dp"
-                android:textColor="@color/orange"
-                android:textSize="14sp" />
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:hint="Add a Description..." />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Bouton pour soumettre le post -->
@@ -100,7 +106,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@android:color/holo_orange_light"
+            android:backgroundTint="@color/orange"
             android:text="Submit"
             android:textColor="@android:color/white"
             android:textStyle="bold"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,7 +18,9 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="16dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <!-- Blog Title -->
         <TextView
@@ -57,15 +59,20 @@
 
     <!-- RecyclerView to display posts -->
 
+    <!-- Bottom App Bar -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_posts"
-        android:layout_width="match_parent"
-        android:layout_height="452dp"
+        android:layout_width="393dp"
+        android:layout_height="489dp"
         android:layout_margin="16dp"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_layout"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/activity_item_blog_post" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -74,13 +81,14 @@
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         app:backgroundTint="@color/white"
-        app:fabCradleMargin="8dp"
-        app:fabCradleRoundedCornerRadius="50dp"
-        app:fabCradleVerticalOffset="6dp">
+        app:fabCradleMargin="5dp"
+        app:fabCradleRoundedCornerRadius="80dp"
+        app:fabCradleVerticalOffset="6dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -163,5 +171,4 @@
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

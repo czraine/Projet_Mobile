@@ -35,22 +35,24 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
-    implementation(libs.material)
+    implementation(libs.material)  // Only this is needed for Material Components
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.coordinatorlayout)
-    implementation (libs.material.v190)
 
-    implementation ("com.github.bumptech.glide:glide:4.15.0")
+    // Glide
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
+    // Navigation Components
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0") // For Java projects
 
+    // CircleImageView
+    implementation(libs.circleimageview)
+
+    // Testing libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation(libs.circleimageview)
-
 }

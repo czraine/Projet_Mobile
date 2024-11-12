@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -32,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="@id/backButton"
         android:layout_marginStart="16dp" />
 
-    <!-- ScrollView for the comments -->
+    <!-- ScrollView for displaying comments -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -44,85 +43,14 @@
         android:layout_marginTop="16dp">
 
         <LinearLayout
+            android:id="@+id/commentsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:divider="?android:attr/dividerVertical"
             android:showDividers="middle"
             android:dividerPadding="8dp">
-
-            <!-- Comment 1 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/comment_background"
-                android:padding="8dp"
-                android:layout_marginBottom="8dp">
-
-                <TextView
-                    android:id="@+id/comment_author1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Alice Johnson"
-                    android:textStyle="bold"
-                    android:textColor="#000" />
-
-                <TextView
-                    android:id="@+id/comment_text1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="This place looks amazing! Can’t wait to visit next summer."
-                    android:textColor="#666"
-                    android:layout_marginTop="4dp" />
-
-                <TextView
-                    android:id="@+id/comment_date1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Oct 10, 2023"
-                    android:textSize="12sp"
-                    android:textColor="#999"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="4dp" />
-            </LinearLayout>
-
-            <!-- Comment 2 (example) -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/comment_background"
-                android:padding="8dp"
-                android:layout_marginBottom="8dp">
-
-                <TextView
-                    android:id="@+id/comment_author2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Michael Smith"
-                    android:textStyle="bold"
-                    android:textColor="#000" />
-
-                <TextView
-                    android:id="@+id/comment_text2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="I visited last year and it was an unforgettable experience!"
-                    android:textColor="#666"
-                    android:layout_marginTop="4dp" />
-
-                <TextView
-                    android:id="@+id/comment_date2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Oct 8, 2023"
-                    android:textSize="12sp"
-                    android:textColor="#999"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="4dp" />
-            </LinearLayout>
-
+            <!-- Dynamic Comments will be added here -->
         </LinearLayout>
     </ScrollView>
 
@@ -172,92 +100,7 @@
             app:backgroundTint="@color/white"
             app:fabCradleMargin="8dp"
             app:fabCradleRoundedCornerRadius="50dp"
-            app:fabCradleVerticalOffset="6dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/nv_home"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/bottom_btn1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/nv_profile"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/bottom_btn2" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/nv_reservation"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/nv_settings"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/bottom_btn3" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView12"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/bottom_btn4" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/nv_logout"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/baseline_logout_24" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
+            app:fabCradleVerticalOffset="6dp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
