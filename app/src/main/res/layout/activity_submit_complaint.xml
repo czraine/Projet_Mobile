@@ -8,7 +8,7 @@
     tools:context=".Activities.SubmitComplaintActivity"
     android:padding="16dp">
 
-    <!-- Champ pour le titre de la plainte -->
+    <!-- Title EditText -->
     <EditText
         android:id="@+id/issueTitle"
         android:layout_width="0dp"
@@ -20,24 +20,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.9"/>
+        app:layout_constraintWidth_percent="0.9" />
 
-    <!-- Champ pour la description de la plainte -->
-    <EditText
-        android:id="@+id/description"
+    <!-- Description TextInputLayout with microphone icon inside -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descriptionLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/description"
-        android:inputType="textMultiLine"
         android:layout_marginTop="16dp"
-        android:padding="12dp"
-        android:backgroundTint="#ddd"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_microphone"
+        app:endIconContentDescription="Voice Input"
         app:layout_constraintTop_toBottomOf="@id/issueTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.9"/>
+        app:layout_constraintWidth_percent="0.9">
 
-    <!-- Bouton pour soumettre la plainte -->
+        <!-- Description EditText inside TextInputLayout -->
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            android:padding="12dp"
+            android:backgroundTint="#ddd" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Submit Button -->
     <Button
         android:id="@+id/submitButton"
         android:layout_width="0dp"
@@ -47,12 +57,12 @@
         android:textColor="#fff"
         android:layout_marginTop="16dp"
         android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintTop_toBottomOf="@id/descriptionLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.9"/>
+        app:layout_constraintWidth_percent="0.9" />
 
-    <!-- Bouton retour (optionnel) -->
+    <!-- Optional Back Button -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="20dp"

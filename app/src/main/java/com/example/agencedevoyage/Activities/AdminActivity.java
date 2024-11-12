@@ -1,14 +1,19 @@
 package com.example.agencedevoyage.Activities;
 
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.example.agencedevoyage.Adapters.ComplaintAdapter;
 import com.example.agencedevoyage.Database.AppDatabase_rahma;
@@ -23,11 +28,12 @@ public class AdminActivity extends AppCompatActivity {
     private final List<Complaint> complaintList = new ArrayList<>();
     private ComplaintAdapter complaintAdapter;
     private Complaint selectedComplaint;
+    private Switch themeSwitch;
 
-    // Statuts possibles
+    // Possible statuses
     private final String[] statuses = {"In Progress", "Resolved", "Unknown"};
 
-    // Instance de la base de données
+    // Database instance
     private AppDatabase_rahma database;
 
     @Override
@@ -35,14 +41,45 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        // Initialiser la base de données
-        database = AppDatabase_rahma.getInstance(this);
-
-        // Configurer RecyclerView pour les plaintes admin
+        // Initialize UI components
+        themeSwitch = findViewById(R.id.themeSwitch);
         RecyclerView recyclerViewAdminComplaints = findViewById(R.id.recyclerViewAdminComplaints);
+        Button updateStatusButton = findViewById(R.id.updateStatusButton);
+
+        // Initialize SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
+        boolean isDarkModeOn = preferences.getBoolean("dark_mode", false);
+
+        // Set initial theme and status bar color
+        setStatusBarColor(isDarkModeOn);
+        if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            themeSwitch.setChecked(true);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            themeSwitch.setChecked(false);
+        }
+
+        // Listen for theme switch changes
+        themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("dark_mode", isChecked);
+            editor.apply();
+
+            // Apply dark mode based on the switch's state
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            setStatusBarColor(isChecked);
+        });
+
+        // Initialize database and RecyclerView
+        database = AppDatabase_rahma.getInstance(this);
         recyclerViewAdminComplaints.setLayoutManager(new LinearLayoutManager(this));
 
-        // Configurer l'adaptateur avec les actions d'édition et de suppression
+        // Set up RecyclerView adapter
         complaintAdapter = new ComplaintAdapter(complaintList, new ComplaintAdapter.OnComplaintClickListener() {
             @Override
             public void onEditComplaint(Complaint complaint) {
@@ -54,67 +91,64 @@ public class AdminActivity extends AppCompatActivity {
                 onComplaintDeleted(complaint);
             }
         });
-
         recyclerViewAdminComplaints.setAdapter(complaintAdapter);
 
-        // Charger les plaintes depuis la base de données
+        // Load complaints from database
         loadAdminComplaintsFromDatabase();
 
-        // Bouton de mise à jour du statut
-        Button updateStatusButton = findViewById(R.id.updateStatusButton);
+        // Set up Update Status button
         updateStatusButton.setOnClickListener(v -> {
             if (selectedComplaint != null) {
-                // Afficher le dialogue pour changer le statut
                 showStatusUpdateDialog();
             } else {
-                // Message si aucune plainte sélectionnée
                 Toast.makeText(AdminActivity.this, "Please select a complaint to update", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // Charger les plaintes depuis la base de données
-    private void loadAdminComplaintsFromDatabase() {
-        // Vider la liste actuelle
-        complaintList.clear();
+    // Set the status bar color based on the theme
+    private void setStatusBarColor(boolean isDarkMode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = this.getWindow();
+            if (isDarkMode) {
+                window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar_dark)); // Dark mode color
+                window.getDecorView().setSystemUiVisibility(0); // White text on dark background
+            } else {
+                window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar_light)); // Light mode color
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR); // Dark text on light background
+            }
+        }
+    }
 
-        // Récupérer toutes les plaintes depuis la base de données
+    // Load complaints from the database into the RecyclerView
+    private void loadAdminComplaintsFromDatabase() {
+        complaintList.clear();
         List<Complaint> complaintsFromDB = database.complaintDAO().getAllComplaints();
         complaintList.addAll(complaintsFromDB);
-
-        // Notifier l'adaptateur des changements
         complaintAdapter.notifyDataSetChanged();
     }
 
-    // Appelé lorsqu'une plainte est sélectionnée
+    // Handle complaint selection for editing
     private void onComplaintSelected(Complaint complaint) {
         selectedComplaint = complaint;
     }
 
-    // Appelé lorsqu'une plainte est supprimée
+    // Handle complaint deletion
     private void onComplaintDeleted(Complaint complaint) {
-        // Supprimer la plainte de la base de données et de la liste
         database.complaintDAO().deleteComplaint(complaint);
         complaintList.remove(complaint);
         complaintAdapter.notifyDataSetChanged();
     }
 
-    // Afficher un dialogue pour mettre à jour le statut
+    // Show dialog to update complaint status
     private void showStatusUpdateDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Update Status");
-
-        // Afficher les statuts disponibles
         builder.setItems(statuses, (dialog, which) -> {
             selectedComplaint.setStatus(statuses[which]);
-
-            // Mettre à jour le statut dans la base de données
             database.complaintDAO().updateComplaintStatus(selectedComplaint.getTitle(), statuses[which]);
-
-            // Notifier l'adaptateur que les données ont changé
             complaintAdapter.notifyItemChanged(complaintList.indexOf(selectedComplaint));
         });
-
         builder.show();
     }
 }

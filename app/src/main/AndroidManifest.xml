@@ -11,6 +11,9 @@
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
     <!-- Optional Camera Feature -->
     <uses-feature
         android:name="android.hardware.camera"
