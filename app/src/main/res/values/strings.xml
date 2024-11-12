@@ -19,5 +19,18 @@
     <string name="fill_in_all_fields">Please fill in all fields</string>
     <string name="complaint_submitted">Complaint Submitted</string>
     <string name="back">Back</string>
+    <string name="create_new_travel_offer">Create a New Travel Offer</string>
+    <string name="enter_offer_title">Enter offer title</string>
+    <string name="enter_offer_description">Enter offer description</string>
+    <string name="enter_offer_destination">Enter destination</string>
+    <string name="enter_offer_price">Enter price</string>
+    <string name="add_offer">Add Offer</string>
+    <string name="offer_image_desc">Image of the offer</string>
+    <string name="edit_offer">Edit Offer</string>
+    <string name="select_new_image">Select New Image</string>
+    <string name="save_offer">Save Offer</string>
+    <string name="search_offers_hint">Search offers</string>
+    <string name="filter_by_destination_hint">Filter by Destination</string>
+    <string name="select_date">Select Date</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,15 +39,18 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterPop , adapterCat ;
     private RecyclerView recyclerViewPop , recyclerViewCat ;
     private ApiService apiService;
+    private Button addOfferButton;
 
+    private  TextView seeAllTextView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        addOfferButton = findViewById(R.id.AddOfferButton);
 
         // Initializing button after setContentView
-        openMainRahmaButton = findViewById(R.id.button_open_main_rahma);
+        Button openMainRahmaButton = findViewById(R.id.button_open_main_rahma);
         openMainRahmaButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Main_rahmaActivity.class);
             startActivity(intent);
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         welcomeTextView.setText( userName);
         apiService = RetrofitClient.getClient().create(ApiService.class);
 
-        initRecyclerView() ;
+
         logUserAction("login"); // Example action for login
 
 
@@ -89,7 +93,24 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AnalyticsActivity.class);
             startActivity(intent);
         });
+         seeAllTextView = findViewById(R.id.Popular_See_All);
 
+        // Set OnClickListener on the TextView
+        seeAllTextView.setOnClickListener(view -> {
+
+                // Create an Intent to navigate to the target activity
+                Intent intent = new Intent(MainActivity.this, ViewOffersActivity.class);
+                startActivity(intent);
+
+        });
+        // Set a click listener on the add offer button
+        addOfferButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Add_Offres.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -164,4 +185,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-}
+

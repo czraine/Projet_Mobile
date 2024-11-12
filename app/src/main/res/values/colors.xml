@@ -22,6 +22,9 @@
     <!-- Status bar colors for light and dark modes -->
     <color name="status_bar_light">#FFFFFF</color> <!-- White for light mode -->
     <color name="status_bar_dark">#000000</color> <!-- Black for dark mode -->
+    <color name="light_gray">#D3D3D3</color> <!-- Light gray color -->
+    <color name="colorAccent">#FF4081</color> <!-- Example accent color, change as needed -->
+
 
 </resources>
 

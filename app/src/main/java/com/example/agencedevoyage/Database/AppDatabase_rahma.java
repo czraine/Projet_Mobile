@@ -11,9 +11,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.agencedevoyage.Dao.ComplaintDAO;
 import com.example.agencedevoyage.Domains.Complaint;
+import com.example.agencedevoyage.Entity.User;
 
 
-@Database(entities = {Complaint.class}, version = 2)
+@Database(entities = {Complaint.class}, version = 2,  exportSchema = false)
+
 public abstract class AppDatabase_rahma extends RoomDatabase {
     private static AppDatabase_rahma instance;
 
