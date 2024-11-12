@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterPop, adapterCat;
     private RecyclerView recyclerViewPop, recyclerViewCat;
-    private ImageView notificationIcon;  // Changed from Button to ImageView
+    private ImageView notificationIcon; // Changed from Button to ImageView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Initialize notification icon (ImageView)
-        notificationIcon = findViewById(R.id.imageView4);  // Make sure ID matches XML
+        notificationIcon = findViewById(R.id.imageView4); // Ensure ID matches XML layout
         notificationIcon.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Main_rahmaActivity.class);
             startActivity(intent);
