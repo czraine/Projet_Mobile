@@ -5,13 +5,10 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="MainPageActivity">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="MainActivity">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="LoginActivity">
+      <SelectionState runConfigName="AdminActivity">
         <option name="selectionMode" value="DROPDOWN" />
         <DropdownSelection timestamp="2024-11-12T18:54:46.096152300Z">
           <Target type="DEFAULT_BOOT">

@@ -60,4 +60,9 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.9")
 
+    // Room dependencies
+    implementation("androidx.room:room-runtime:2.5.0")
+    annotationProcessor("androidx.room:room-compiler:2.5.0")
+    implementation ("com.google.android.material:material:1.4.0")
+
 }

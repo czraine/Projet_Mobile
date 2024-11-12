@@ -11,7 +11,17 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="lavender">#8692f7</color>
+    <color name="green">#4CAF50</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="red">#F44336</color>
 
+    <color name="in_progress_color">#FFF3E0</color> <!-- Light orange -->
+    <color name="resolved_color">#DFFFD6</color> <!-- Light green -->
+    <color name="unknown_color">#FFEBEE</color> <!-- Light red -->
+
+    <!-- Status bar colors for light and dark modes -->
+    <color name="status_bar_light">#FFFFFF</color> <!-- White for light mode -->
+    <color name="status_bar_dark">#000000</color> <!-- Black for dark mode -->
 
 </resources>
 
