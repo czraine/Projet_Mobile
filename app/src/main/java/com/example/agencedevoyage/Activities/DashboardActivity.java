@@ -22,6 +22,7 @@ import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,5 +105,6 @@ public class DashboardActivity extends AppCompatActivity {
         barChart.getXAxis().setLabelCount(5, true);  // Show labels for 1 to 5 stars
         barChart.animateY(1000);                     // Add animation
         barChart.invalidate();                       // Refresh chart
+
     }
 }

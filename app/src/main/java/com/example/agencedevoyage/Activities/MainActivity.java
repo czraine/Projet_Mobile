@@ -3,6 +3,11 @@ package com.example.agencedevoyage.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import android.util.Log;
+
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,25 +18,44 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agencedevoyage.Adapters.CategoryAdapter;
 import com.example.agencedevoyage.Adapters.PopularAdapter;
+import com.example.agencedevoyage.Database.RetrofitClient;
 import com.example.agencedevoyage.Domains.CategoryDomain;
 import com.example.agencedevoyage.Domains.PopularDomain;
+import com.example.agencedevoyage.Entity.ApiService;
+import com.example.agencedevoyage.Entity.UserActivity;
 import com.example.agencedevoyage.R;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterPop, adapterCat;
     private RecyclerView recyclerViewPop, recyclerViewCat;
     private ImageView notificationIcon; // Changed from Button to ImageView
 
+
+    private ApiService apiService;
+
+    private  TextView seeAllTextView ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        addOfferButton = findViewById(R.id.AddOfferButton);
 
         // Initialize notification icon (ImageView)
         notificationIcon = findViewById(R.id.imageView4); // Ensure ID matches XML layout
         notificationIcon.setOnClickListener(v -> {
+
             Intent intent = new Intent(MainActivity.this, Main_rahmaActivity.class);
             startActivity(intent);
         });
@@ -40,9 +64,14 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
         String userName = preferences.getString("user_name", "Guest");
 
-        // Set the "Welcome Back" text with the user's name
-        TextView welcomeTextView = findViewById(R.id.textView7);
-        welcomeTextView.setText(userName);
+        // Set the "Welcome Back" text to include the user's name
+        TextView welcomeTextView = findViewById(R.id.textView7); // The TextView with "Welcome Back"
+        welcomeTextView.setText( userName);
+        apiService = RetrofitClient.getClient().create(ApiService.class);
+
+
+        logUserAction("login"); // Example action for login
+
 
         // Initialize RecyclerViews
         recyclerViewPop = findViewById(R.id.view_pop);
@@ -63,6 +92,30 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+        Button analyticsButton = findViewById(R.id.analyticsButton);
+        analyticsButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AnalyticsActivity.class);
+            startActivity(intent);
+        });
+         seeAllTextView = findViewById(R.id.Popular_See_All);
+
+        // Set OnClickListener on the TextView
+        seeAllTextView.setOnClickListener(view -> {
+
+                // Create an Intent to navigate to the target activity
+                Intent intent = new Intent(MainActivity.this, ViewOffersActivity.class);
+                startActivity(intent);
+
+        });
+        // Set a click listener on the add offer button
+        addOfferButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Add_Offres.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initRecyclerView() {
@@ -82,4 +135,58 @@ public class MainActivity extends AppCompatActivity {
         adapterCat = new CategoryAdapter(catsList);
         recyclerViewCat.setAdapter(adapterCat);
     }
+
+
+    private void logUserAction(String action) {
+        // Retrieve userId dynamically from SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
+        int userId = preferences.getInt("user_id", -1); // Default to -1 if not found
+
+        // Only log the action if a valid userId is found
+        if (userId == -1) {
+            Log.e("LogUserAction", "User ID not found or invalid.");
+            Toast.makeText(this, "User ID not found. Unable to log activity.", Toast.LENGTH_SHORT).show();
+            return;  // Early return if userId is invalid
+        }
+
+        // Format the timestamp to match the ISO 8601 format (e.g., 2024-11-12T19:58:19Z)
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = sdf.format(new Date());
+
+        // Create the UserActivity object to log the action
+        UserActivity activity = new UserActivity(userId, action, formattedDate);
+
+        // Make the API call to log the activity
+        apiService.logUserActivity(activity).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Show success message if the activity was logged successfully
+                    Toast.makeText(MainActivity.this, "Activity logged", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Log the response code and error body for debugging
+                    Log.e("LogUserAction", "Failed to log activity. Response code: " + response.code());
+                    try {
+                        String errorBody = response.errorBody().string();  // Get the error body as a string
+                        Log.e("LogUserAction", "Error Body: " + errorBody);
+                        Toast.makeText(MainActivity.this, "Error: " + errorBody, Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        Log.e("LogUserAction", "Error reading the error body", e);
+                        Toast.makeText(MainActivity.this, "Failed to read error message", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Log the error with Log.e instead of printStackTrace
+                Log.e("LogUserAction", "Network error", t);
+                // Show network error message to the user
+                Toast.makeText(MainActivity.this, "Network error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }
+

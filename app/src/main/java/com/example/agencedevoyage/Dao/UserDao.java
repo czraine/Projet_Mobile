@@ -20,6 +20,15 @@ public interface UserDao {
 
     @Query("SELECT * FROM user_table WHERE username = :username AND password = :password LIMIT 1")
     User getUserByUsernameAndPassword(String username, String password);
+
     @Delete
     void delete(User user);
+    @Query("SELECT * FROM user_table WHERE email = :email")
+    User getUserByEmail(String email);
+
+    @Query("UPDATE user_table SET confirmation_code = :code WHERE email = :email")
+    void updateConfirmationCode(String email, String code);
+
+    @Query("UPDATE user_table SET password = :password WHERE email = :email")
+    void updatePassword(String email, String password);
 }

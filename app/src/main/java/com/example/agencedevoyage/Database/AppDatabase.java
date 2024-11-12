@@ -7,7 +7,7 @@ import android.content.Context;
 import com.example.agencedevoyage.Dao.UserDao;
 import com.example.agencedevoyage.Entity.User;
 
-@Database(entities = {User.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;

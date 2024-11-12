@@ -1,0 +1,113 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5"
+    tools:context=".Activities.ViewOffersActivity">
+
+    <!-- Search Bar -->
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:padding="12dp"
+        android:hint="Search offers"
+        android:backgroundTint="#FFFFFF"
+        android:inputType="text"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawablePadding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Destination Filter -->
+    <EditText
+        android:id="@+id/destinationEditText"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:padding="12dp"
+        android:hint="Filter by destination"
+        android:backgroundTint="#FFFFFF"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/searchEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Price Range Label -->
+    <TextView
+        android:id="@+id/priceRangeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Price Range"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/destinationEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Price Range SeekBar -->
+    <SeekBar
+        android:id="@+id/priceRangeSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/priceRangeLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Type Filter Label -->
+    <TextView
+        android:id="@+id/typeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Offer Type"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/priceRangeSeekBar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Type Spinner -->
+    <Spinner
+        android:id="@+id/typeSpinner"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:padding="12dp"
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/typeLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Date Selection Button -->
+    <Button
+        android:id="@+id/dateButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Select Date"
+        android:backgroundTint="#6200EE"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:drawableLeft="@android:drawable/ic_menu_my_calendar"
+        app:layout_constraintTop_toBottomOf="@id/typeSpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- RecyclerView for displaying offers -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/offersRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/dateButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
