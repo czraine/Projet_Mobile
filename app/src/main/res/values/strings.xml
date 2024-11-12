@@ -20,4 +20,8 @@
     <string name="complaint_submitted">Complaint Submitted</string>
     <string name="back">Back</string>
 
+    <string name="rate_experience">Rate your experience</string>
+    <string name="leave_feedback">Leave additional feedback</string>
+
+
 </resources>

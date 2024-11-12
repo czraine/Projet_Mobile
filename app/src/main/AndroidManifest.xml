@@ -12,6 +12,8 @@
         android:maxSdkVersion="32" />
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
 
     <!-- Optional Camera Feature -->
@@ -61,6 +63,11 @@
         <activity
             android:name=".Activities.EditComplaintActivity"
             android:exported="true" />
+
+        <!-- Dashboard Activity -->
+        <activity
+            android:name=".Activities.DashboardActivity"
+            android:exported="true" /> <!-- Ajout de DashboardActivity -->
 
         <!-- Private Activities (Not Exported) -->
         <activity

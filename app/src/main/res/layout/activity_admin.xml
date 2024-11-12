@@ -9,18 +9,16 @@
     android:padding="16dp">
 
     <!-- Theme Switch -->
-
-    <!-- Title for Admin Page -->
     <Switch
         android:id="@+id/themeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="252dp"
         android:text="Dark Mode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Title for Admin Page -->
     <TextView
         android:id="@+id/adminTitle"
         android:layout_width="wrap_content"
@@ -41,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@id/adminTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/updateStatusButton" />
+        app:layout_constraintBottom_toTopOf="@id/updateStatusButton" />
 
     <!-- Button to update complaint status -->
     <Button
@@ -54,6 +52,19 @@
         android:textColor="#fff"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/viewDashboardButton" />
+
+    <!-- Button to view the dashboard -->
+    <Button
+        android:id="@+id/viewDashboardButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Consulter Dashboard"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#ff6d3d"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

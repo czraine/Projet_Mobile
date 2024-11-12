@@ -3,7 +3,6 @@ package com.example.agencedevoyage.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,16 +22,16 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterPop, adapterCat;
     private RecyclerView recyclerViewPop, recyclerViewCat;
-    private Button openMainRahmaButton; // Moved initialization here
+    private ImageView notificationIcon;  // Changed from Button to ImageView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initializing button after setContentView
-        openMainRahmaButton = findViewById(R.id.button_open_main_rahma);
-        openMainRahmaButton.setOnClickListener(v -> {
+        // Initialize notification icon (ImageView)
+        notificationIcon = findViewById(R.id.imageView4);  // Make sure ID matches XML
+        notificationIcon.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Main_rahmaActivity.class);
             startActivity(intent);
         });
