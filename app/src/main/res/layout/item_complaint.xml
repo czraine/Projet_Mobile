@@ -1,0 +1,53 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/complaintTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Complaint Title"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editButton"/>
+
+    <TextView
+        android:id="@+id/complaintDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Complaint Description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/complaintTitle"
+        app:layout_constraintEnd_toStartOf="@+id/editButton"/>
+
+    <TextView
+        android:id="@+id/complaintStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Complaint Status"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/complaintDescription"
+        app:layout_constraintEnd_toStartOf="@+id/editButton"/>
+
+    <!-- Edit Button -->
+    <ImageView
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_edit"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Delete Button -->
+    <ImageView
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_delete"
+        app:layout_constraintTop_toBottomOf="@id/editButton"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

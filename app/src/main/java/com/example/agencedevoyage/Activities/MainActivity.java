@@ -3,6 +3,7 @@ package com.example.agencedevoyage.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,81 +21,66 @@ import com.example.agencedevoyage.R;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView.Adapter adapterPop , adapterCat ;
-    private RecyclerView recyclerViewPop , recyclerViewCat ;
+    private RecyclerView.Adapter adapterPop, adapterCat;
+    private RecyclerView recyclerViewPop, recyclerViewCat;
+    private Button openMainRahmaButton; // Moved initialization here
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Retrieve the user's name from SharedPreferences
-        SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
-        String userName = preferences.getString("user_name", "Guest"); // Default to "Guest" if no name is found
 
-        // Set the "Welcome Back" text to include the user's name
-        TextView welcomeTextView = findViewById(R.id.textView7); // The TextView with "Welcome Back"
-        welcomeTextView.setText( userName);
-        initRecyclerView() ;
-
-        ImageView logoutButton = findViewById(R.id.nv_logout);
-
-        logoutButton.setOnClickListener(view -> {
-            // Display feedback to the user
-            Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
-
-            // Clear any user session (if needed)
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.clear();  // Clear stored session data
-
-            editor.putBoolean("is_logged_in", false); // Reset login state
-
-            editor.apply();  // Save the changes
-
-            // Navigate to LoginActivity (or any other screen)
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);  // Clear back stack
+        // Initializing button after setContentView
+        openMainRahmaButton = findViewById(R.id.button_open_main_rahma);
+        openMainRahmaButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Main_rahmaActivity.class);
             startActivity(intent);
-            finish();  // Close current activity
         });
 
-    }
-    private void initRecyclerView(){
-        ArrayList<PopularDomain> items = new ArrayList<>() ;
+        // Retrieve the user's name from SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
+        String userName = preferences.getString("user_name", "Guest");
 
+        // Set the "Welcome Back" text with the user's name
+        TextView welcomeTextView = findViewById(R.id.textView7);
+        welcomeTextView.setText(userName);
 
-        items.add(new PopularDomain (  "Mar caible, avendia lago", "Miami Beach",  "This 2 bed /1 bath home boasts an enormous,"
-                +"open-living plan, accented by striking" +
-                "architectural features and high-end finishes." +
-                "Feel inspired by open sight lines that" +
-                " embrace the outdoors, crowned by stunning" +
-                "coffered ceilings. ",  2,  true,  4.8,  "pic1",  true,  1000));
-
-        items.add(new PopularDomain (  "Passo Rolle, TN",  "Hawaii Beach",  "This 2 bed /1 bath home boasts an enormous,"+
-                "open-living plan, accented by striking" +
-                "architectural features and high-end finishes." +
-                "Feel inspired by open sight lines that" +
-                " embrace the outdoors, crowned by stunning" +
-                "coffered ceilings. ", 1, false,  5,  "pic2",  false,  2500));
-        items.add(new PopularDomain (  "Mar caible , avendia lago",  "Miami Beach",  "This 2 bed /1 bath home boasts an enormous,"
-                +"open-living plan, accented by striking" +
-                "architectural features and high-end finishes." +
-                "Feel inspired by open sight lines that" +
-                " embrace the outdoors, crowned by stunning" +" coffered ceilings. ",  3,  true,  4.3, "pic3",  true, 30000));
-
+        // Initialize RecyclerViews
         recyclerViewPop = findViewById(R.id.view_pop);
-        recyclerViewPop.setLayoutManager(new LinearLayoutManager( this, LinearLayoutManager.HORIZONTAL,  false));
-        adapterPop = new PopularAdapter(items) ;
+        recyclerViewCat = findViewById(R.id.view_cat);
+        initRecyclerView();
+
+        // Logout button logic
+        ImageView logoutButton = findViewById(R.id.nv_logout);
+        logoutButton.setOnClickListener(view -> {
+            Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.putBoolean("is_logged_in", false);
+            editor.apply();
+
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
+    }
+
+    private void initRecyclerView() {
+        ArrayList<PopularDomain> items = new ArrayList<>();
+        items.add(new PopularDomain("Mar caible, avendia lago", "Miami Beach", "Description...", 2, true, 4.8, "pic1", true, 1000));
+        items.add(new PopularDomain("Passo Rolle, TN", "Hawaii Beach", "Description...", 1, false, 5, "pic2", false, 2500));
+
+        recyclerViewPop.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        adapterPop = new PopularAdapter(items);
         recyclerViewPop.setAdapter(adapterPop);
 
+        ArrayList<CategoryDomain> catsList = new ArrayList<>();
+        catsList.add(new CategoryDomain("Beaches", "cat1"));
+        catsList.add(new CategoryDomain("Camps", "cat2"));
 
-        ArrayList<CategoryDomain> catsList =new ArrayList<>();
-        catsList.add(new CategoryDomain(  "Beaches",  "cat1"));
-        catsList.add(new CategoryDomain(  "Camps",  "cat2"));
-        catsList.add(new CategoryDomain(  "Forest",  "cat3"));
-        catsList.add(new CategoryDomain(  "Desert",  "cat4"));
-        catsList.add(new CategoryDomain(  "Mountain",  "cat5"));
-        recyclerViewCat =findViewById(R.id.view_cat);
-        recyclerViewCat.setLayoutManager(new LinearLayoutManager(  this, LinearLayoutManager.HORIZONTAL,  false));
-        adapterCat=new CategoryAdapter(catsList);
+        recyclerViewCat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        adapterCat = new CategoryAdapter(catsList);
         recyclerViewCat.setAdapter(adapterCat);
     }
 }
