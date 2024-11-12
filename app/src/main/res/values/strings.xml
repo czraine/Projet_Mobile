@@ -5,5 +5,19 @@
     <string name="close_nav">Close Navigation Drawer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="submit_complaint">Submit a Complaint</string>
+    <string name="issue_title">Issue Title</string>
+    <string name="description">Description</string>
+    <string name="track_complaints">Track Your Complaints</string>
+    <string name="flight_cancellation">Flight Cancellation</string>
+    <string name="in_progress">Status: In Progress</string>
+    <string name="resolved">Status: Resolved</string>
+    <string name="lost_luggage">Lost Luggage</string>
+    <string name="unknown">Set Unknown</string>
+    <string name="complaint_title">Complaint Title</string>
+    <string name="status_unknown">Status: Unknown</string>
+    <string name="fill_in_all_fields">Please fill in all fields</string>
+    <string name="complaint_submitted">Complaint Submitted</string>
+    <string name="back">Back</string>
 
 </resources>
