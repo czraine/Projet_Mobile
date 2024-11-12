@@ -135,6 +135,11 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <Button
+                android:id="@+id/analyticsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Analytics" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -206,7 +211,9 @@
                 android:paddingEnd="8dp" />
 
         </LinearLayout>
+
     </ScrollView>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"

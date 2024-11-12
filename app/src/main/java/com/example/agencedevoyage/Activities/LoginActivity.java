@@ -17,8 +17,17 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.agencedevoyage.Dao.UserDao;
 import com.example.agencedevoyage.Database.AppDatabase;
+import com.example.agencedevoyage.Database.RetrofitClient;
+import com.example.agencedevoyage.Entity.ApiService;
 import com.example.agencedevoyage.Entity.User;
+import com.example.agencedevoyage.Entity.UserActivity;
 import com.example.agencedevoyage.R;
+
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (isLoggedIn) {
             // If the user is logged in, redirect to MainActivity
+
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish(); // Close the LoginActivity
@@ -64,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Please enter both username and password", Toast.LENGTH_SHORT).show();
             } else {
                 // Pass the activity context to the AsyncTask
+
                 new LoginAsyncTask(LoginActivity.this, userDao).execute(username, password);
             }
         });
@@ -103,11 +114,13 @@ public class LoginActivity extends AppCompatActivity {
 
         // Inside onPostExecute in LoginAsyncTask in LoginActivity.java
         @Override
+
         protected void onPostExecute(User user) {
             if (user != null) {
                 SharedPreferences preferences = activity.getSharedPreferences("user_session", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("user_name", user.getName()); // Save the user's name
+                editor.putInt("user_id", user.getUid()); // Save the user's ID
                 editor.putBoolean("is_logged_in", true); // Save login state
                 editor.apply();
 
@@ -121,5 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
+
     }
+
 }

@@ -39,6 +39,34 @@ public class User {
 
     @ColumnInfo(name = "profile_picture")
     private String profilePicture;
+
+    @ColumnInfo(name = "confirmation_code")
+    private String confirmationCode;
+
+    public String getConfirmationCode() {
+        return confirmationCode;
+    }
+
+    public void setConfirmationCode(String confirmationCode) {
+        this.confirmationCode = confirmationCode;
+    }
+    @Ignore // This constructor will be ignored by Room
+
+    public User(int uid, String name, String username, String password, String email, String phone, String streetAddress, String city, String state, String country, String profilePicture, String confirmationCode) {
+        this.uid = uid;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.streetAddress = streetAddress;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.profilePicture = profilePicture;
+        this.confirmationCode = confirmationCode;
+    }
+
     @Ignore // This constructor will be ignored by Room
 
     public User(int uid, String name, String username, String password, String email, String phone, String streetAddress, String city, String state, String country, String profilePicture) {
