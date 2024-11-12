@@ -25,6 +25,12 @@
         android:textSize="16sp"
         android:layout_marginTop="8dp"
         android:layout_gravity="center"/>
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/ratingBarChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"/>
+
 
     <!-- RecyclerView for displaying only feedback and ratings -->
     <androidx.recyclerview.widget.RecyclerView
