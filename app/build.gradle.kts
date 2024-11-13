@@ -47,5 +47,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    // Stripe SDK for Android
+    implementation ("com.stripe:stripe-android:21.0.1")
+    implementation ("com.stripe:stripe-java:20.0.0")
+    implementation ("com.android.volley:volley:1.2.1")
 
 }

@@ -1,0 +1,138 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".Activities.add_reservation">
+
+    <!-- ScrollView to ensure all content is accessible on smaller screens -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- User Information Form -->
+            <EditText
+                android:id="@+id/first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="First Name"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Last Name"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Passport field -->
+            <EditText
+                android:id="@+id/passeport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Passport"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Requirements field -->
+            <EditText
+                android:id="@+id/requirement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Requirement"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Offer Selection TextView -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select an Offer:"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- RadioGroup for offers -->
+            <RadioGroup
+                android:id="@+id/offer_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Layout for displaying selected offer details -->
+            <LinearLayout
+                android:id="@+id/selected_offer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/selected_offer_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/selected_offer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:paddingTop="8dp" />
+
+                <TextView
+                    android:id="@+id/selected_offer_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:paddingTop="4dp" />
+
+                <TextView
+                    android:id="@+id/selected_offer_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="8dp" />
+            </LinearLayout>
+
+            <!-- Card Input for Payment -->
+            <com.stripe.android.view.CardInputWidget
+                android:id="@+id/card_input_widget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Confirm Payment Button -->
+            <Button
+                android:id="@+id/confirm_payment_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirm Payment"
+                android:layout_marginBottom="16dp" />
+
+            <!-- View Reservations Button -->
+            <Button
+                android:id="@+id/reservation_list_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View Reservations"
+                android:layout_marginTop="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
